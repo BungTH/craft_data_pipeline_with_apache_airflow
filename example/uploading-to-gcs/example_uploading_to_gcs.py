@@ -7,19 +7,18 @@ from google.cloud import storage
 from google.oauth2 import service_account
 
 
-def upload_blob(bucket_name, source_file_name, destination_blob_name):
+def upload_to_gcs():
     """Uploads a file to the bucket."""
     # The ID of your GCS bucket
-    # bucket_name = "your-bucket-name"
-    # The path to your file to upload
-    # source_file_name = "local/path/to/file"
+    bucket_name = "airflow-tutorial-bucket-bungkap"
+    source_file_name = "greenery_data/addresses.csv"
     # The ID of your GCS object
-    # destination_blob_name = "storage-object-name"
-
-    keyfile = os.environ.get("KEYFILE_PATH")
+    destination_blob_name = "greenery-data/addresses.csv"
+    keyfile = "keyfile/gcs-credentials.json"
+    
     service_account_info = json.load(open(keyfile))
     credentials = service_account.Credentials.from_service_account_info(service_account_info)
-    project_id = "dataengineercafe"
+    project_id = "basic-carrier-448907-q3"
 
     storage_client = storage.Client(
         project=project_id,
@@ -44,10 +43,11 @@ def upload_blob(bucket_name, source_file_name, destination_blob_name):
         f"File {source_file_name} uploaded to {destination_blob_name}."
     )
 
+# if __name__ == "__main__":
+#     upload_blob(
+#         bucket_name=sys.argv[1],
+#         source_file_name=sys.argv[2],
+#         destination_blob_name=sys.argv[3],
+#     )
 
-if __name__ == "__main__":
-    upload_blob(
-        bucket_name=sys.argv[1],
-        source_file_name=sys.argv[2],
-        destination_blob_name=sys.argv[3],
-    )
+upload_to_gcs()
