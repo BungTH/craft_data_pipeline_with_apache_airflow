@@ -5,6 +5,9 @@ dags/__pycache__/
 weather_data/
 billboard/
 /downloads/
+greenery_data/
+keyfile/
+.DS_Store
 
 __pycache__/
 *.py[cod]
