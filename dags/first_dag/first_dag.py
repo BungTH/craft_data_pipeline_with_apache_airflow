@@ -13,7 +13,7 @@ default_args = {
 }
 
 dag = DAG(
-    'first_dag',
+    'first_dag',    # Should Name this Dag the same as Pipeline Name for better readability
     default_args=default_args,
     description='My first Airflow DAG with an empty operator',
     schedule_interval=timedelta(days=1),
@@ -24,20 +24,23 @@ dag = DAG(
 def hello_world():
     print("hello world")
 
-start = EmptyOperator(
-    task_id='start',
+# Mock Operator, Do nothing
+start = EmptyOperator(  
+    task_id='start',    # taks_id can be name the same as sthe variable name
     dag=dag,
 )
 
 hello_world = PythonOperator(
-    task_id='hello-world',
+    task_id='hello-world',  # This will call hello_world function above
     dag=dag,
     python_callable=hello_world
 )
 
+# Mock Operator, Same as `start`
 end = EmptyOperator(
     task_id='end',
     dag=dag,
 )
 
+# Dependency Tasks
 start >> hello_world >> end
