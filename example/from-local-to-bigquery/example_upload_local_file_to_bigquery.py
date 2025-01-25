@@ -21,13 +21,7 @@ def load_to_bigquery():
     job_config = bigquery.LoadJobConfig(
         source_format=bigquery.SourceFormat.CSV,
         write_disposition=bigquery.WriteDisposition.WRITE_TRUNCATE,
-        schema=[
-            bigquery.SchemaField("address_id", "STRING"),
-            bigquery.SchemaField("address", "STRING"),
-            bigquery.SchemaField("zipcode", "STRING"),
-            bigquery.SchemaField("state", "STRING"),
-            bigquery.SchemaField("country", "STRING"),
-        ]
+        autodetect=True,
     )
 
     with open(local_file_path, "rb") as source_file:
